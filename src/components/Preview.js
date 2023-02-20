@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import "../style/Preview.css";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default class Preview extends Component {
     constructor(props) {
         super(props);
         this.handleSaveToPDF = this.handleSaveToPDF.bind(this);
     }
-    handleSaveToPDF() {
-        const printwin = window.open("");
-        printwin.document.write(document.querySelector(".preview-container").innerHTML);
-        printwin.print();
+    async handleSaveToPDF() {
+        const data = await html2canvas(document.querySelector(".preview-container"));
+
+        const imgData = data.toDataURL("image/png");
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, "PNG", 0, 0);
+        pdf.save("cv.pdf");
     }
     render() {
         const { firstName, lastName, title } = this.props.state;
