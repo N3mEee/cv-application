@@ -3,15 +3,11 @@ import React from "react";
 export default class WorkExperience extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: "",
-        };
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(e) {
-        this.setState({ value: e.target.value });
-        this.props.setValue(e.target.value, this.props.index);
+        this.props.setValue(e, this.props.index);
     }
 
     render() {
@@ -20,9 +16,29 @@ export default class WorkExperience extends React.Component {
                 <input
                     onChange={this.handleChange}
                     type="text"
+                    id="jobTitle"
+                    placeholder="Job Title"
+                    value={this.props.value[this.props.index].jobTitle}
+                />
+                <input
+                    onChange={this.handleChange}
+                    type="text"
                     id="companyName"
                     placeholder="Company Name"
-                    value={this.state.value}
+                    value={this.props.value[this.props.index].companyName}
+                />
+                <input
+                    onChange={this.handleChange}
+                    type="text"
+                    id="time"
+                    placeholder="MM/YYYY - MM/YYYY"
+                    value={this.props.value[this.props.index].time}
+                />
+                <textarea
+                    onChange={this.handleChange}
+                    id="description"
+                    placeholder="Job Description"
+                    value={this.props.value[this.props.index].description}
                 />
             </div>
         );

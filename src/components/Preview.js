@@ -9,30 +9,44 @@ export default class Preview extends Component {
         this.handleSaveToPDF = this.handleSaveToPDF.bind(this);
     }
     async handleSaveToPDF() {
+        const pdf = new jsPDF("portrait", "pt", "a4");
         const data = await html2canvas(document.querySelector(".preview-container"));
-
-        const imgData = data.toDataURL("image/png");
-        const pdf = new jsPDF();
-        pdf.addImage(imgData, "PNG", 0, 0);
+        const img = data.toDataURL("image/png");
+        const imgProperties = pdf.getImageProperties(img);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+        pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
         pdf.save("cv.pdf");
     }
     render() {
-        const { firstName, lastName, title } = this.props.state;
         return (
             <div className="Preview">
                 <h1>Preview</h1>
-                <div className="preview-container">
-                    <p>
-                        {firstName} {lastName}
-                    </p>
-                    <p>{title}</p>
-                    <div className="work-experience">
-                        {this.props.newWorkExperience.map((item, index) => {
-                            return <p key={index}>{item.value}</p>;
-                        })}
+                {this.props.personal.name !== "" ? (
+                    <div>
+                        <div className="preview-container">
+                            <div className="personal-container">
+                                {Object.values(this.props.personal).map((value, i) => {
+                                    return <p key={i}>{value}</p>;
+                                })}
+                            </div>
+                            <div className="work-experience-container">
+                                {this.props.workExperience.map((item, index) => {
+                                    return (
+                                        <div key={index} className="work-experience">
+                                            {Object.values(item).map((value, index) => {
+                                                return <p>{value}</p>;
+                                            })}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        <button onClick={this.handleSaveToPDF}>Save to PDF</button>
                     </div>
-                </div>
-                <button onClick={this.handleSaveToPDF}>Save to PDF</button>
+                ) : (
+                    ""
+                )}
             </div>
         );
     }

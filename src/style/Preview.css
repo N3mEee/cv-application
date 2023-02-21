@@ -8,9 +8,17 @@
     color: black;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    font-size: 1.2rem;
 }
 
+.personal-container {
+    text-align: center;
+}
+
+.work-experience-container {
+    padding: 20px;
+    text-align: start;
+}
 .work-experience {
-    align-self: center;
+    border-top: 1px solid #000;
 }

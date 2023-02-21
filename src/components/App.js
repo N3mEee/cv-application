@@ -2,40 +2,44 @@ import React from "react";
 import "../style/App.css";
 import Preview from "./Preview";
 import WorkExperience from "./WorkExperience";
+import Personal from "./Personal";
 
 export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            cv: {
-                firstName: "",
-                lastName: "",
-                title: "",
+            personal: {
+                name: "",
+                location: "",
+                phoneNumber: "",
+                email: "",
             },
-            newWorkExperience: [],
+            workExperience: [],
         };
         this.handleOnChange = this.handleOnChange.bind(this);
-        this.handleNewWorkExperience = this.handleNewWorkExperience.bind(this);
-        this.handleNewWorkExperienceChange = this.handleNewWorkExperienceChange.bind(this);
+        this.handleWorkExperience = this.handleWorkExperience.bind(this);
+        this.handleWorkExperienceChange = this.handleWorkExperienceChange.bind(this);
     }
 
     handleOnChange(e) {
-        const cvCopy = this.state.cv;
-        cvCopy[e.target.id] = e.target.value;
-        this.setState({ cv: cvCopy });
+        const personalCopy = this.state.personal;
+        personalCopy[e.target.id] = e.target.value;
+        this.setState({ personal: personalCopy });
     }
 
-    handleNewWorkExperienceChange(value, i) {
-        const newWorkExperienceCopy = this.state.newWorkExperience;
-        newWorkExperienceCopy[i].value = value;
-        console.log(newWorkExperienceCopy);
-        this.setState({ newWorkExperience: [...newWorkExperienceCopy] });
+    handleWorkExperienceChange(e, i) {
+        const workExperienceCopy = this.state.workExperience;
+        workExperienceCopy[i][e.target.id] = e.target.value;
+        this.setState({ workExperience: [...workExperienceCopy] });
     }
 
-    handleNewWorkExperience(e) {
+    handleWorkExperience(e) {
         e.preventDefault();
         this.setState({
-            newWorkExperience: [...this.state.newWorkExperience, { value: "" }],
+            workExperience: [
+                ...this.state.workExperience,
+                { jobTitle: "", companyName: "", time: "", description: "" },
+            ],
         });
     }
 
@@ -44,41 +48,22 @@ export default class App extends React.Component {
             <div className="App">
                 <header className="app-header">
                     <form className="form-container">
-                        <div>
-                            <input
-                                onChange={this.handleOnChange}
-                                type="text"
-                                id="firstName"
-                                placeholder="First Name"
-                                value={this.state.cv.firstName}
-                            />
-                            <input
-                                onChange={this.handleOnChange}
-                                type="text"
-                                id="lastName"
-                                placeholder="Last Name"
-                                value={this.state.cv.lastName}
-                            />
-                        </div>
-                        <input
-                            onChange={this.handleOnChange}
-                            type="text"
-                            id="title"
-                            placeholder="Title"
-                            value={this.state.cv.title}
-                        />
-                        {this.state.newWorkExperience.map((item, index) => {
+                        <p>Personal Information</p>
+                        <Personal personal={this.state.personal} setValue={this.handleOnChange} />
+                        <p>Work Experience</p>
+                        {this.state.workExperience.map((item, index) => {
                             return (
                                 <WorkExperience
                                     key={index}
                                     index={index}
-                                    setValue={this.handleNewWorkExperienceChange}
+                                    value={this.state.workExperience}
+                                    setValue={this.handleWorkExperienceChange}
                                 />
                             );
                         })}
-                        <button onClick={this.handleNewWorkExperience}>New Work Experience</button>
+                        <button onClick={this.handleWorkExperience}>New Work Experience</button>
                     </form>
-                    <Preview state={this.state.cv} newWorkExperience={this.state.newWorkExperience} />
+                    <Preview personal={this.state.personal} workExperience={this.state.workExperience} />
                 </header>
             </div>
         );
