@@ -31,26 +31,30 @@ export default class Preview extends Component {
                                 })}
                             </div>
                             <div className="work-experience-container">
-                                {this.props.workExperience.map((item, index) => {
-                                    return (
-                                        <div key={index} className="work-experience">
-                                            {Object.values(item).map((value, index) => {
-                                                return <p key={index}>{value}</p>;
-                                            })}
-                                        </div>
-                                    );
-                                })}
+                                {this.props.workExperience.length > 0
+                                    ? this.props.workExperience.map((item, index) => {
+                                          return (
+                                              <div key={index} className="work-experience">
+                                                  {Object.values(item).map((value, index) => {
+                                                      return <p key={index}>{value}</p>;
+                                                  })}
+                                              </div>
+                                          );
+                                      })
+                                    : ""}
                             </div>
                             <div className="education-container">
-                                {this.props.education.map((item, index) => {
-                                    return (
-                                        <div key={index} className="education">
-                                            {Object.values(item).map((value, index) => {
-                                                return <p key={index}>{value}</p>;
-                                            })}
-                                        </div>
-                                    );
-                                })}
+                                {this.props.education.length > 0
+                                    ? this.props.education.map((item, index) => {
+                                          return (
+                                              <div key={index} className="education">
+                                                  {Object.values(item).map((value, index) => {
+                                                      return <p key={index}>{value}</p>;
+                                                  })}
+                                              </div>
+                                          );
+                                      })
+                                    : ""}
                             </div>
                         </div>
                         <button onClick={this.handleSaveToPDF}>Save to PDF</button>
