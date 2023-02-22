@@ -3,6 +3,7 @@ import "../style/App.css";
 import Preview from "./Preview";
 import WorkExperience from "./WorkExperience";
 import Personal from "./Personal";
+import Education from "./Education";
 
 export default class App extends React.Component {
     constructor() {
@@ -15,10 +16,13 @@ export default class App extends React.Component {
                 email: "",
             },
             workExperience: [],
+            education: [],
         };
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleWorkExperience = this.handleWorkExperience.bind(this);
         this.handleWorkExperienceChange = this.handleWorkExperienceChange.bind(this);
+        this.handleEducation = this.handleEducation.bind(this);
+        this.handleEducationChange = this.handleEducationChange.bind(this);
     }
 
     handleOnChange(e) {
@@ -33,6 +37,12 @@ export default class App extends React.Component {
         this.setState({ workExperience: [...workExperienceCopy] });
     }
 
+    handleEducationChange(e, i) {
+        const educationCopy = this.state.education;
+        educationCopy[i][e.target.id] = e.target.value;
+        this.setState({ education: [...educationCopy] });
+    }
+
     handleWorkExperience(e) {
         e.preventDefault();
         this.setState({
@@ -40,6 +50,13 @@ export default class App extends React.Component {
                 ...this.state.workExperience,
                 { jobTitle: "", companyName: "", time: "", description: "" },
             ],
+        });
+    }
+
+    handleEducation(e) {
+        e.preventDefault();
+        this.setState({
+            education: [...this.state.education, { subject: "", university: "", time: "" }],
         });
     }
 
@@ -61,9 +78,25 @@ export default class App extends React.Component {
                                 />
                             );
                         })}
-                        <button onClick={this.handleWorkExperience}>New Work Experience</button>
+                        <button onClick={this.handleWorkExperience}>New Experience</button>
+                        <p>Education</p>
+                        {this.state.education.map((item, index) => {
+                            return (
+                                <Education
+                                    key={index}
+                                    index={index}
+                                    value={this.state.education}
+                                    setValue={this.handleEducationChange}
+                                />
+                            );
+                        })}
+                        <button onClick={this.handleEducation}>New Education</button>
                     </form>
-                    <Preview personal={this.state.personal} workExperience={this.state.workExperience} />
+                    <Preview
+                        personal={this.state.personal}
+                        workExperience={this.state.workExperience}
+                        education={this.state.education}
+                    />
                 </header>
             </div>
         );

@@ -19,6 +19,16 @@
     padding: 20px;
     text-align: start;
 }
+
 .work-experience {
+    border-top: 1px solid #000;
+}
+
+.education-container {
+    padding: 20px;
+    text-align: start;
+}
+
+.education {
     border-top: 1px solid #000;
 }

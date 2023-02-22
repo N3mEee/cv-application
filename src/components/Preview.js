@@ -35,7 +35,18 @@ export default class Preview extends Component {
                                     return (
                                         <div key={index} className="work-experience">
                                             {Object.values(item).map((value, index) => {
-                                                return <p>{value}</p>;
+                                                return <p key={index}>{value}</p>;
+                                            })}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <div className="education-container">
+                                {this.props.education.map((item, index) => {
+                                    return (
+                                        <div key={index} className="education">
+                                            {Object.values(item).map((value, index) => {
+                                                return <p key={index}>{value}</p>;
                                             })}
                                         </div>
                                     );
