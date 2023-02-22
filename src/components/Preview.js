@@ -23,20 +23,33 @@ export default class Preview extends Component {
             <div className="Preview">
                 <h1>Preview</h1>
                 {this.props.personal.name !== "" ? (
-                    <div>
+                    <div className="container">
                         <div className="preview-container">
                             <div className="personal-container">
                                 {Object.values(this.props.personal).map((value, i) => {
-                                    return <p key={i}>{value}</p>;
+                                    return (
+                                        <p key={i} className={Object.keys(this.props.personal)[i]}>
+                                            {value}
+                                        </p>
+                                    );
                                 })}
                             </div>
                             <div className="work-experience-container">
+                                <h1>Experience</h1>
+
                                 {this.props.workExperience.length > 0
                                     ? this.props.workExperience.map((item, index) => {
                                           return (
                                               <div key={index} className="work-experience">
-                                                  {Object.values(item).map((value, index) => {
-                                                      return <p key={index}>{value}</p>;
+                                                  {Object.values(item).map((value, i) => {
+                                                      return (
+                                                          <p
+                                                              key={i}
+                                                              className={Object.keys(this.props.workExperience[0])[i]}
+                                                          >
+                                                              {value}
+                                                          </p>
+                                                      );
                                                   })}
                                               </div>
                                           );
@@ -44,12 +57,20 @@ export default class Preview extends Component {
                                     : ""}
                             </div>
                             <div className="education-container">
+                                <h1>Education</h1>
                                 {this.props.education.length > 0
                                     ? this.props.education.map((item, index) => {
                                           return (
                                               <div key={index} className="education">
-                                                  {Object.values(item).map((value, index) => {
-                                                      return <p key={index}>{value}</p>;
+                                                  {Object.values(item).map((value, i) => {
+                                                      return (
+                                                          <p
+                                                              key={i}
+                                                              className={Object.keys(this.props.education[0])[i]}
+                                                          >
+                                                              {value}
+                                                          </p>
+                                                      );
                                                   })}
                                               </div>
                                           );
