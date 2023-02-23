@@ -86,18 +86,18 @@ export default class App extends React.Component {
                         <p>Work Experience</p>
                         {this.state.workExperience.map((item, index) => {
                             return (
-                                <div key={index}>
-                                    <WorkExperience
-                                        index={index}
-                                        value={this.state.workExperience}
-                                        setValue={this.handleWorkExperienceChange}
-                                    />
+                                <div className="experience-container" key={index}>
                                     <button
                                         onClick={(e) => this.handleDeleteComponent(e, index)}
                                         className="deleteExperience"
                                     >
                                         Delete
                                     </button>
+                                    <WorkExperience
+                                        index={index}
+                                        value={this.state.workExperience}
+                                        setValue={this.handleWorkExperienceChange}
+                                    />
                                 </div>
                             );
                         })}
@@ -107,18 +107,18 @@ export default class App extends React.Component {
                         <p>Education</p>
                         {this.state.education.map((item, index) => {
                             return (
-                                <div key={index}>
-                                    <Education
-                                        index={index}
-                                        value={this.state.education}
-                                        setValue={this.handleEducationChange}
-                                    />
+                                <div className="education-container" key={index}>
                                     <button
                                         onClick={(e) => this.handleDeleteComponent(e, index)}
                                         className="deleteEducation"
                                     >
                                         Delete
                                     </button>
+                                    <Education
+                                        index={index}
+                                        value={this.state.education}
+                                        setValue={this.handleEducationChange}
+                                    />
                                 </div>
                             );
                         })}

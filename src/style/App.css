@@ -5,15 +5,17 @@
 
 form {
     max-width: 600px;
-    margin: 0 29px;
 }
 
 .form-container {
     margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20%;
 }
 
 p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     margin: 20px 0 10px;
 }
@@ -22,10 +24,9 @@ input,
 textarea {
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1rem;
     padding: 10px;
     margin-bottom: 20px;
-    width: 80%;
+    width: 90%;
 }
 
 button {
@@ -38,15 +39,17 @@ button {
     padding: 10px 20px;
     margin-top: 10px;
     transition: background-color 0.3s ease;
+    align-self: center;
 }
 
 button:hover {
     background-color: #005ea6;
 }
 
-#addExperience,
-#addEducation {
-    display: block;
+.education-container,
+.experience-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .deleteExperience,
@@ -54,13 +57,17 @@ button:hover {
     background-color: transparent;
     color: rgb(196, 4, 4);
     cursor: pointer;
-    margin-left: 10px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    align-self: center;
     border: none;
-    text-decoration: underline;
 }
 
 .deleteExperience:hover,
 .deleteEducation:hover {
-    background-color: white;
+    background-color: rgb(231, 231, 231);
+}
+
+.deleteExperience:hover + .Work-Experience,
+.deleteEducation:hover + .Education {
+    border: 1px solid red;
 }
