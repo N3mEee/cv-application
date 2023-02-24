@@ -10,7 +10,7 @@ export default class Preview extends Component {
     }
     async handleSaveToPDF() {
         const pdf = new jsPDF("portrait", "pt", "a4");
-        const data = await html2canvas(document.querySelector(".preview-container"));
+        const data = await html2canvas(document.querySelector(".container"));
         const img = data.toDataURL("image/png");
         const imgProperties = pdf.getImageProperties(img);
         const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -78,11 +78,11 @@ export default class Preview extends Component {
                                     : ""}
                             </div>
                         </div>
-                        <button onClick={this.handleSaveToPDF}>Save to PDF</button>
                     </div>
                 ) : (
                     ""
                 )}
+                <button onClick={this.handleSaveToPDF}>Save to PDF</button>
             </div>
         );
     }

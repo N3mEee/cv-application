@@ -2,8 +2,7 @@
     max-width: 800px;
     margin: 0 5%;
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     box-shadow: 0 0 10px #ccc;
 }
 
@@ -41,7 +40,8 @@
 }
 
 .university,
-.companyName {
+.companyName,
+.time {
     margin: 0;
     font-weight: 500;
     font-style: italic;
