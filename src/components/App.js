@@ -1,138 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/App.css";
 import Preview from "./Preview";
 import WorkExperience from "./WorkExperience";
 import Personal from "./Personal";
 import Education from "./Education";
 
-export default class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            personal: {
-                name: "",
-                location: "",
-                phoneNumber: "",
-                email: "",
-            },
-            workExperience: [],
-            education: [],
-        };
-        this.handleOnChange = this.handleOnChange.bind(this);
-        this.handleAddComponent = this.handleAddComponent.bind(this);
-        this.handleWorkExperienceChange = this.handleWorkExperienceChange.bind(this);
-        this.handleEducationChange = this.handleEducationChange.bind(this);
-        this.handleDeleteComponent = this.handleDeleteComponent.bind(this);
-    }
+export default function App() {
+    const [personal, setPersonal] = useState({ name: "", location: "", phoneNumber: "", email: "" });
+    const [workExperience, setWorkExperience] = useState([]);
+    const [education, setEducation] = useState([]);
 
-    handleOnChange(e) {
-        const personalCopy = this.state.personal;
-        personalCopy[e.target.id] = e.target.value;
-        this.setState({ personal: personalCopy });
-    }
+    const handleOnChange = (e) => {
+        const copyPersonal = personal;
+        copyPersonal[e.target.id] = e.target.value;
+        setPersonal({ ...copyPersonal });
+    };
 
-    handleWorkExperienceChange(e, i) {
-        const workExperienceCopy = this.state.workExperience;
+    const handleWorkExperienceChange = (e, i) => {
+        const workExperienceCopy = workExperience;
         workExperienceCopy[i][e.target.id] = e.target.value;
-        this.setState({ workExperience: [...workExperienceCopy] });
-    }
+        setWorkExperience([...workExperienceCopy]);
+    };
 
-    handleEducationChange(e, i) {
-        const educationCopy = this.state.education;
+    const handleEducationChange = (e, i) => {
+        const educationCopy = education;
         educationCopy[i][e.target.id] = e.target.value;
-        this.setState({ education: [...educationCopy] });
-    }
+        setEducation([...educationCopy]);
+    };
 
-    handleAddComponent(e) {
+    const handleAddComponent = (e) => {
         e.preventDefault();
         if (e.target.id === "addExperience") {
-            this.setState({
-                workExperience: [
-                    ...this.state.workExperience,
-                    { jobTitle: "", companyName: "", time: "", description: "" },
-                ],
-            });
+            setWorkExperience([...workExperience, { jobTitle: "", companyName: "", time: "", description: "" }]);
         } else if (e.target.id === "addEducation") {
-            this.setState({
-                education: [...this.state.education, { subject: "", university: "", time: "" }],
-            });
+            setEducation([...education, { subject: "", university: "", time: "" }]);
         }
-    }
-
-    handleDeleteComponent(e, index) {
+    };
+    const handleDeleteComponent = (e, index) => {
         e.preventDefault();
         if (e.target.className === "deleteEducation") {
-            const educationCopy = this.state.education;
+            const educationCopy = education;
             educationCopy.splice(index, 1);
-            this.setState({
-                education: [...educationCopy],
-            });
+            setEducation([...educationCopy]);
         } else if (e.target.className === "deleteExperience") {
-            const experienceCopy = this.state.workExperience;
+            const experienceCopy = workExperience;
             experienceCopy.splice(index, 1);
-            this.setState({
-                workExperience: [...experienceCopy],
-            });
+            setWorkExperience([...experienceCopy]);
         }
-    }
+    };
 
-    render() {
-        return (
-            <div className="App">
-                <header className="app-header">
-                    <form className="form-container">
-                        <p>Personal Information</p>
-                        <Personal personal={this.state.personal} setValue={this.handleOnChange} />
-                        <p>Work Experience</p>
-                        {this.state.workExperience.map((item, index) => {
-                            return (
-                                <div className="experience-container" key={index}>
-                                    <button
-                                        onClick={(e) => this.handleDeleteComponent(e, index)}
-                                        className="deleteExperience"
-                                    >
-                                        Delete
-                                    </button>
-                                    <WorkExperience
-                                        index={index}
-                                        value={this.state.workExperience}
-                                        setValue={this.handleWorkExperienceChange}
-                                    />
-                                </div>
-                            );
-                        })}
-                        <button onClick={this.handleAddComponent} id="addExperience">
-                            New Experience
-                        </button>
-                        <p>Education</p>
-                        {this.state.education.map((item, index) => {
-                            return (
-                                <div className="education-container" key={index}>
-                                    <button
-                                        onClick={(e) => this.handleDeleteComponent(e, index)}
-                                        className="deleteEducation"
-                                    >
-                                        Delete
-                                    </button>
-                                    <Education
-                                        index={index}
-                                        value={this.state.education}
-                                        setValue={this.handleEducationChange}
-                                    />
-                                </div>
-                            );
-                        })}
-                        <button onClick={this.handleAddComponent} id="addEducation">
-                            New Education
-                        </button>
-                    </form>
-                    <Preview
-                        personal={this.state.personal}
-                        workExperience={this.state.workExperience}
-                        education={this.state.education}
-                    />
-                </header>
-            </div>
-        );
-    }
+    return (
+        <div className="App">
+            <header className="app-header">
+                <form className="form-container">
+                    <p>Personal Information</p>
+                    <Personal personal={personal} setValue={handleOnChange} />
+                    <p>Work Experience</p>
+                    {workExperience.map((item, index) => {
+                        return (
+                            <div className="experience-container" key={index}>
+                                <button onClick={(e) => handleDeleteComponent(e, index)} className="deleteExperience">
+                                    Delete
+                                </button>
+                                <WorkExperience
+                                    index={index}
+                                    value={workExperience}
+                                    setValue={handleWorkExperienceChange}
+                                />
+                            </div>
+                        );
+                    })}
+                    <button onClick={handleAddComponent} id="addExperience">
+                        New Experience
+                    </button>
+                    <p>Education</p>
+                    {education.map((item, index) => {
+                        return (
+                            <div className="education-container" key={index}>
+                                <button onClick={(e) => handleDeleteComponent(e, index)} className="deleteEducation">
+                                    Delete
+                                </button>
+                                <Education index={index} value={education} setValue={handleEducationChange} />
+                            </div>
+                        );
+                    })}
+                    <button onClick={handleAddComponent} id="addEducation">
+                        New Education
+                    </button>
+                </form>
+                <Preview personal={personal} workExperience={workExperience} education={education} />
+            </header>
+        </div>
+    );
 }
