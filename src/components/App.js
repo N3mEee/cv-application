@@ -11,9 +11,7 @@ export default function App() {
     const [education, setEducation] = useState([]);
 
     const handleOnChange = (e) => {
-        const copyPersonal = personal;
-        copyPersonal[e.target.id] = e.target.value;
-        setPersonal({ ...copyPersonal });
+        setPersonal({ ...personal, [e.target.id]: e.target.value });
     };
 
     const handleWorkExperienceChange = (e, i) => {
