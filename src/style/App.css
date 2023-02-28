@@ -15,7 +15,7 @@ form {
 }
 
 p {
-    font-size: 1.1rem;
+    font-size: 1.1em;
     font-weight: bold;
     margin: 20px 0 10px;
 }
@@ -35,7 +35,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1em;
     padding: 10px 20px;
     margin-top: 10px;
     transition: background-color 0.3s ease;
@@ -57,7 +57,7 @@ button:hover {
     background-color: transparent;
     color: rgb(196, 4, 4);
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.9em;
     align-self: center;
     border: none;
 }
@@ -70,4 +70,10 @@ button:hover {
 .deleteExperience:hover + .Work-Experience,
 .deleteEducation:hover + .Education {
     border: 1px solid red;
+}
+
+@media (max-width: 768px) {
+    .app-header {
+        display: block;
+    }
 }

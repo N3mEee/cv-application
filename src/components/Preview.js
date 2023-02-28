@@ -14,10 +14,11 @@ export default function Preview(props) {
         pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
         pdf.save("cv.pdf");
     }
+
     return (
         <div className="Preview">
             <h1>Preview</h1>
-            {props.personal.name !== "" ? (
+            {props.personal.name.length > 0 && (
                 <div className="container">
                     <div className="preview-container">
                         <div className="personal-container">
@@ -31,47 +32,42 @@ export default function Preview(props) {
                         </div>
                         <div className="work-experience-container">
                             <h1>Experience</h1>
-
-                            {props.workExperience.length > 0
-                                ? props.workExperience.map((item, index) => {
-                                      return (
-                                          <div key={index} className="work-experience">
-                                              {Object.values(item).map((value, i) => {
-                                                  return (
-                                                      <p key={i} className={Object.keys(props.workExperience[0])[i]}>
-                                                          {value}
-                                                      </p>
-                                                  );
-                                              })}
-                                          </div>
-                                      );
-                                  })
-                                : ""}
+                            {props.workExperience.length > 0 &&
+                                props.workExperience.map((item, index) => {
+                                    return (
+                                        <div key={index} className="work-experience">
+                                            {Object.values(item).map((value, i) => {
+                                                return (
+                                                    <p key={i} className={Object.keys(props.workExperience[0])[i]}>
+                                                        {value}
+                                                    </p>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                })}
                         </div>
                         <div className="education-container">
                             <h1>Education</h1>
-                            {props.education.length > 0
-                                ? props.education.map((item, index) => {
-                                      return (
-                                          <div key={index} className="education">
-                                              {Object.values(item).map((value, i) => {
-                                                  return (
-                                                      <p key={i} className={Object.keys(props.education[0])[i]}>
-                                                          {value}
-                                                      </p>
-                                                  );
-                                              })}
-                                          </div>
-                                      );
-                                  })
-                                : ""}
+                            {props.education.length > 0 &&
+                                props.education.map((item, index) => {
+                                    return (
+                                        <div key={index} className="education">
+                                            {Object.values(item).map((value, i) => {
+                                                return (
+                                                    <p key={i} className={Object.keys(props.education[0])[i]}>
+                                                        {value}
+                                                    </p>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                })}
                         </div>
                     </div>
                 </div>
-            ) : (
-                ""
             )}
-            <button onClick={handleSaveToPDF}>Save to PDF</button>
+            {props.personal.name.length > 0 && <button onClick={handleSaveToPDF}>Save to PDF</button>}
         </div>
     );
 }

@@ -1,5 +1,7 @@
 .container {
-    max-width: 800px;
+    min-height: 80vh;
+    max-width: 2480px;
+    max-height: 3508px;
     margin: 0 5%;
     padding: 20px;
     /* border: 1px solid #ccc; */
@@ -13,7 +15,7 @@
 }
 
 .name {
-    font-size: 24px;
+    font-size: 1.6em;
     font-weight: bold;
     margin: 0 0 10px 0;
 }
@@ -25,7 +27,7 @@
 .phoneNumber,
 .email {
     margin: 0;
-    font-size: 14px;
+    font-size: 0.9em;
 }
 
 .work-experience-container,
@@ -35,7 +37,7 @@
 
 .jobTitle,
 .subject {
-    font-size: 20px;
+    font-size: 1.3em;
     font-weight: bold;
 }
 
@@ -49,4 +51,10 @@
 
 .description {
     font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 0;
+    }
 }
